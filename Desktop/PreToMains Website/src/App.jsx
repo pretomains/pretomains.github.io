@@ -157,7 +157,7 @@ export function App() {
               </span>
             </div>
             <p style={{ fontSize: '0.85rem', color: '#94A3B8', lineHeight: 1.6 }}>
-              Empowering Civil Services aspirants with structured, concise, and high-yield revision materials for UPSC & State PCS Prelims and Mains.
+              Empowering government exam aspirants with structured, concise, and high-yield revision materials for UPSC, SSC, Banking, Railways, State PCS, Defense & All Government Exams.
             </p>
           </div>
 
@@ -166,11 +166,11 @@ export function App() {
               Syllabus & Exam Coverage
             </h4>
             <ul style={{ listStyle: 'none', fontSize: '0.82rem', color: '#94A3B8', lineHeight: 1.8 }}>
-              <li>• GS Paper 1: History, Geography & Society</li>
-              <li>• GS Paper 2: Polity, Governance & IR</li>
-              <li>• GS Paper 3: Economy, Environment & Tech</li>
-              <li>• GS Paper 4: Ethics & Case Studies</li>
-              <li>• State PCS PYQs & Prelims Revision</li>
+              <li>• UPSC CSE & State PCS Prelims/Mains</li>
+              <li>• SSC CGL, CHSL & CPO Exam Guides</li>
+              <li>• Banking Exams (IBPS, SBI PO & Clerk)</li>
+              <li>• Railways & Defense (RRB, NDA, CDS)</li>
+              <li>• General Studies, Quant & Reasoning PYQs</li>
             </ul>
           </div>
 
@@ -181,8 +181,8 @@ export function App() {
             <ul style={{ listStyle: 'none', fontSize: '0.82rem', color: '#94A3B8', lineHeight: 1.8 }}>
               <li>✔ High-Yield Revision PDFs & Mindmaps</li>
               <li>✔ Topic-wise Solved PYQs</li>
-              <li>✔ Mains Answer Writing Frameworks</li>
-              <li>✔ Instant Free Digital Downloads</li>
+              <li>✔ Exam Specific Practice Frameworks</li>
+              <li>✔ Instant Free Digital PDF Downloads</li>
             </ul>
           </div>
         </div>
@@ -207,7 +207,7 @@ export function App() {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-            <span>Designed for UPSC & State PCS Prelims & Mains Exam Preparation</span>
+            <span>Designed for All Government Exams Preparation</span>
           </div>
         </div>
       </footer>

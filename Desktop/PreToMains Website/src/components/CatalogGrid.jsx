@@ -1,11 +1,15 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { ProductCard } from './ProductCard';
-import { Filter, SlidersHorizontal, SearchX, Grid, List } from 'lucide-react';
+import { LazyLoadWrapper } from './LazyLoadWrapper';
+import { Filter, SlidersHorizontal, SearchX, ChevronLeft, ChevronRight, Layers } from 'lucide-react';
 
 export const CatalogGrid = ({ products, searchTerm, onSelectProduct }) => {
   const [filterType, setFilterType] = useState('ALL'); // ALL, FEATURED, FREE, PAID
   const [sortBy, setSortBy] = useState('DEFAULT'); // DEFAULT, PRICE_LOW, PRICE_HIGH, TITLE
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(12);
 
+  // Filter & Sort logic
   const filteredProducts = useMemo(() => {
     return products.filter((p) => {
       // Keyword search
@@ -31,6 +35,33 @@ export const CatalogGrid = ({ products, searchTerm, onSelectProduct }) => {
       return 0;
     });
   }, [products, searchTerm, filterType, sortBy]);
+
+  // Reset to Page 1 whenever search, filter, or sort changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, filterType, sortBy, itemsPerPage]);
+
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage) || 1;
+
+  // Paginated Subset
+  const currentProducts = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return filteredProducts.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredProducts, currentPage, itemsPerPage]);
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+      // Smooth scroll back to catalog top
+      const catalogEl = document.getElementById('catalog');
+      if (catalogEl) {
+        catalogEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
+  const startItemNum = filteredProducts.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
+  const endItemNum = Math.min(currentPage * itemsPerPage, filteredProducts.length);
 
   return (
     <section id="catalog" style={{ marginTop: '2rem' }}>
@@ -106,29 +137,121 @@ export const CatalogGrid = ({ products, searchTerm, onSelectProduct }) => {
           </div>
 
           <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B', whiteSpace: 'nowrap' }}>
-            Showing <strong>{filteredProducts.length}</strong> items
+            Showing <strong>{startItemNum} - {endItemNum}</strong> of <strong>{filteredProducts.length}</strong> items
           </span>
         </div>
       </div>
 
-      {/* Grid Display */}
-      {filteredProducts.length > 0 ? (
-        <div
-          className="product-grid"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-            gap: '1.25rem'
-          }}
-        >
-          {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.Product_id}
-              product={product}
-              onSelectProduct={onSelectProduct}
-            />
-          ))}
-        </div>
+      {/* Grid Display with Lazy Loading */}
+      {currentProducts.length > 0 ? (
+        <>
+          <div
+            className="product-grid"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+              gap: '1.25rem'
+            }}
+          >
+            {currentProducts.map((product) => (
+              <LazyLoadWrapper key={product.Product_id} minHeight="360px">
+                <ProductCard
+                  product={product}
+                  onSelectProduct={onSelectProduct}
+                />
+              </LazyLoadWrapper>
+            ))}
+          </div>
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div 
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '1rem',
+                marginTop: '2.5rem',
+                padding: '1rem 1.25rem',
+                backgroundColor: '#FFFFFF',
+                borderRadius: 'var(--radius-lg)',
+                border: '1px solid #E2E8F0',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
+              }}
+            >
+              {/* Items Per Page Selector */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', color: '#64748B' }}>
+                <Layers size={15} style={{ color: '#DC2626' }} />
+                <span>Per Page:</span>
+                <select
+                  value={itemsPerPage}
+                  onChange={(e) => setItemsPerPage(Number(e.target.value))}
+                  className="input-field"
+                  style={{ width: 'auto', padding: '0.25rem 0.6rem', height: '32px', fontSize: '0.82rem' }}
+                >
+                  <option value={8}>8 items</option>
+                  <option value={12}>12 items</option>
+                  <option value={16}>16 items</option>
+                  <option value={24}>24 items</option>
+                </select>
+              </div>
+
+              {/* Page Number Buttons */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                {/* Previous Page */}
+                <button
+                  className="btn btn-outline btn-sm"
+                  disabled={currentPage === 1}
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  style={{ opacity: currentPage === 1 ? 0.4 : 1, cursor: currentPage === 1 ? 'not-allowed' : 'pointer' }}
+                >
+                  <ChevronLeft size={16} />
+                  <span>Prev</span>
+                </button>
+
+                {/* Numbered Buttons */}
+                {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((pageNum) => (
+                  <button
+                    key={pageNum}
+                    onClick={() => handlePageChange(pageNum)}
+                    style={{
+                      minWidth: '36px',
+                      height: '36px',
+                      borderRadius: 'var(--radius-sm)',
+                      border: '1px solid',
+                      borderColor: pageNum === currentPage ? '#DC2626' : '#E2E8F0',
+                      backgroundColor: pageNum === currentPage ? '#DC2626' : '#FFFFFF',
+                      color: pageNum === currentPage ? '#FFFFFF' : '#09090B',
+                      fontWeight: pageNum === currentPage ? 800 : 600,
+                      fontSize: '0.85rem',
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease'
+                    }}
+                  >
+                    {pageNum}
+                  </button>
+                ))}
+
+                {/* Next Page */}
+                <button
+                  className="btn btn-outline btn-sm"
+                  disabled={currentPage === totalPages}
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  style={{ opacity: currentPage === totalPages ? 0.4 : 1, cursor: currentPage === totalPages ? 'not-allowed' : 'pointer' }}
+                >
+                  <span>Next</span>
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+
+              {/* Page Indicator */}
+              <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>
+                Page <strong>{currentPage}</strong> of <strong>{totalPages}</strong>
+              </div>
+            </div>
+          )}
+        </>
       ) : (
         /* Empty Search Results */
         <div

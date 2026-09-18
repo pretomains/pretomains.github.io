@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { X, Download, Flame, ExternalLink, Share2, Check, FileText, Video, PlayCircle } from 'lucide-react';
+import { X, Download, ExternalLink, Share2, Check, FileText, PlayCircle } from 'lucide-react';
+import { PdfIconCardHeader } from './PdfIconCardHeader';
 
 export const ProductModal = ({ product, onClose }) => {
   const [copied, setCopied] = useState(false);
@@ -75,35 +76,20 @@ export const ProductModal = ({ product, onClose }) => {
               alignItems: 'start'
             }}
           >
-            {/* Image Box */}
+            {/* Styled PDF Preview Header */}
             <div 
               style={{
                 borderRadius: 'var(--radius-md)',
                 overflow: 'hidden',
-                backgroundColor: '#F1F5F9',
-                border: '1px solid #E2E8F0',
-                position: 'relative',
-                maxHeight: '320px'
+                border: '1px solid #E2E8F0'
               }}
             >
-              <img 
-                src={product.Image_Link} 
-                alt={product.Product_Title} 
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&auto=format&fit=crop&q=80';
-                }}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              <PdfIconCardHeader
+                product={product}
+                isFeatured={isFeatured}
+                isFree={isFree}
+                height="240px"
               />
-
-              {isFeatured && (
-                <div style={{ position: 'absolute', top: '10px', left: '10px' }}>
-                  <span className="badge badge-featured">
-                    <Flame size={12} />
-                    Featured Material
-                  </span>
-                </div>
-              )}
             </div>
 
             {/* Details Box */}
@@ -119,7 +105,7 @@ export const ProductModal = ({ product, onClose }) => {
 
                 {!isFree && (
                   <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 600 }}>
-                    Instant Digital Access
+                    Instant Digital PDF Access
                   </span>
                 )}
               </div>

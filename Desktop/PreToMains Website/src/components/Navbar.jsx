@@ -42,7 +42,7 @@ export const Navbar = ({ searchTerm, setSearchTerm }) => {
               style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem', textTransform: 'none', fontWeight: 700 }}
             >
               <Sparkles size={12} />
-              <span>Civil Services Exam Portal</span>
+              <span>All Government Exams Portal</span>
             </span>
           </div>
         </div>
@@ -63,7 +63,7 @@ export const Navbar = ({ searchTerm, setSearchTerm }) => {
             type="text"
             className="input-field"
             style={{ paddingLeft: '2.6rem', paddingRight: '1rem', height: '42px', fontSize: '0.9rem' }}
-            placeholder="Search notes, PYQs, subjects, or Product ID..."
+            placeholder="Search UPSC, SSC, Banking, Railways, PYQs or Product ID..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -72,5 +72,3 @@ export const Navbar = ({ searchTerm, setSearchTerm }) => {
     </header>
   );
 };
-
-

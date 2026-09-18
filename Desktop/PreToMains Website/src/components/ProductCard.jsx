@@ -1,20 +1,10 @@
-import React, { useState } from 'react';
-import { Download, ExternalLink, Flame, Eye, Tag, Video } from 'lucide-react';
+import React from 'react';
+import { Download, Eye, Video } from 'lucide-react';
+import { PdfIconCardHeader } from './PdfIconCardHeader';
 
 export const ProductCard = ({ product, onSelectProduct }) => {
-  const [imgSrc, setImgSrc] = useState(product.Image_Link);
-  const [imgError, setImgError] = useState(false);
-
   const isFree = Number(product.Price_in_rupees) === 0;
   const isFeatured = String(product.featured).toUpperCase() === 'TRUE';
-
-  const handleImageError = () => {
-    if (!imgError) {
-      setImgError(true);
-      // Fallback high quality document placeholder
-      setImgSrc('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&auto=format&fit=crop&q=80');
-    }
-  };
 
   return (
     <div 
@@ -30,79 +20,14 @@ export const ProductCard = ({ product, onSelectProduct }) => {
         boxShadow: '0 4px 14px rgba(0, 0, 0, 0.04)'
       }}
     >
-      {/* Top Media Preview */}
-      <div style={{ position: 'relative', height: '190px', backgroundColor: '#F1F5F9', overflow: 'hidden' }}>
-        <img
-          src={imgSrc}
-          alt={product.Product_Title}
-          onError={handleImageError}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            transition: 'transform 0.3s ease'
-          }}
-        />
-
-        {/* Featured Tag */}
-        {isFeatured && (
-          <div style={{ position: 'absolute', top: '12px', left: '12px', zIndex: 2 }}>
-            <span className="badge badge-featured">
-              <Flame size={12} />
-              Featured
-            </span>
-          </div>
-        )}
-
-        {/* Product ID Code Tag (Clickable to copy direct link) */}
-        <button 
-          onClick={(e) => {
-            e.stopPropagation();
-            onSelectProduct(product);
-          }}
-          title={`Direct link for ${product.Product_id}`}
-          style={{ 
-            position: 'absolute', 
-            top: '12px', 
-            right: '12px', 
-            backgroundColor: 'rgba(15, 23, 42, 0.88)', 
-            color: '#FFFFFF',
-            fontSize: '0.7rem',
-            fontWeight: 700,
-            padding: '0.2rem 0.55rem',
-            borderRadius: 'var(--radius-sm)',
-            backdropFilter: 'blur(4px)',
-            fontFamily: 'monospace',
-            border: 'none',
-            cursor: 'pointer',
-            zIndex: 3
-          }}
-        >
-          {product.Product_id}
-        </button>
-
-        {/* Video Available Badge Overlay */}
-        {product.Video_URL && product.Video_URL.trim() !== '' && product.Video_URL !== '#' && (
-          <div style={{ position: 'absolute', bottom: '12px', left: '12px', zIndex: 2 }}>
-            <span 
-              className="badge" 
-              style={{ backgroundColor: '#DC2626', color: '#FFFFFF', padding: '0.2rem 0.5rem', fontSize: '0.7rem' }}
-            >
-              <Video size={12} />
-              Video
-            </span>
-          </div>
-        )}
-
-        {/* Price Tag Overlay */}
-        <div style={{ position: 'absolute', bottom: '12px', right: '12px', zIndex: 2 }}>
-          {isFree ? (
-            <span className="badge badge-free">FREE DOWNLOAD</span>
-          ) : (
-            <span className="badge badge-price">₹{product.Price_in_rupees}</span>
-          )}
-        </div>
-      </div>
+      {/* Top PDF Icon Header */}
+      <PdfIconCardHeader
+        product={product}
+        isFeatured={isFeatured}
+        isFree={isFree}
+        onSelectProduct={onSelectProduct}
+        height="185px"
+      />
 
       {/* Content Body */}
       <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Flame, ArrowRight, Download, Sparkles, Video } from 'lucide-react';
+import { Flame, ArrowRight, Download, Video } from 'lucide-react';
+import { PdfIconCardHeader } from './PdfIconCardHeader';
 
 export const FeaturedSection = ({ products, onSelectProduct }) => {
   const featuredItems = products.filter(p => String(p.featured).toUpperCase() === 'TRUE');
@@ -17,7 +18,7 @@ export const FeaturedSection = ({ products, onSelectProduct }) => {
             <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#09090B' }}>
               Featured Notes & Materials
             </h2>
-            <p style={{ fontSize: '0.85rem', color: '#64748B' }}>Handpicked top-recommended study guides for Prelims & Mains</p>
+            <p style={{ fontSize: '0.85rem', color: '#64748B' }}>Handpicked top-recommended study guides for Government Exams</p>
           </div>
         </div>
       </div>
@@ -48,65 +49,15 @@ export const FeaturedSection = ({ products, onSelectProduct }) => {
                 position: 'relative'
               }}
             >
-              <div style={{ position: 'relative', height: '210px', backgroundColor: '#09090B' }}>
-                <img
-                  src={item.Image_Link}
-                  alt={item.Product_Title}
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&auto=format&fit=crop&q=80';
-                  }}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover'
-                  }}
-                />
-
-                <div 
-                  style={{
-                    position: 'absolute',
-                    top: '12px',
-                    left: '12px',
-                    backgroundColor: '#DC2626',
-                    color: '#FFFFFF',
-                    padding: '0.3rem 0.7rem',
-                    borderRadius: 'var(--radius-full)',
-                    fontSize: '0.75rem',
-                    fontWeight: 800,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.35rem',
-                    boxShadow: '0 4px 12px rgba(220, 38, 38, 0.4)'
-                  }}
-                >
-                  <Sparkles size={12} />
-                  <span>HOT FEATURED</span>
-                </div>
-
-                <div 
-                  style={{
-                    position: 'absolute',
-                    bottom: '12px',
-                    left: '12px',
-                    backgroundColor: 'rgba(9, 9, 11, 0.85)',
-                    color: '#FFFFFF',
-                    padding: '0.35rem 0.8rem',
-                    borderRadius: 'var(--radius-md)',
-                    fontSize: '1rem',
-                    fontWeight: 800,
-                    backdropFilter: 'blur(4px)'
-                  }}
-                >
-                  {isFree ? 'FREE' : `₹${item.Price_in_rupees}`}
-                </div>
-              </div>
+              <PdfIconCardHeader
+                product={item}
+                isFeatured={true}
+                isFree={isFree}
+                onSelectProduct={onSelectProduct}
+                height="195px"
+              />
 
               <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#DC2626', marginBottom: '0.35rem', fontFamily: 'monospace' }}>
-                  ID: {item.Product_id}
-                </div>
-
                 <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#09090B', marginBottom: '0.5rem', lineHeight: 1.3 }}>
                   {item.Product_Title}
                 </h3>

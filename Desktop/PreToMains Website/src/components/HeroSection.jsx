@@ -1,7 +1,7 @@
 import React from 'react';
-import { Award, FileText, Download, Sparkles, Table } from 'lucide-react';
+import { Award, FileText, Download, Sparkles } from 'lucide-react';
 
-export const HeroSection = ({ totalCount, featuredCount, freeCount, onOpenSheetModal }) => {
+export const HeroSection = ({ totalCount, featuredCount, freeCount }) => {
   return (
     <section style={{ margin: '1.5rem 0 2rem 0' }}>
       <div 
@@ -47,8 +47,8 @@ export const HeroSection = ({ totalCount, featuredCount, freeCount, onOpenSheetM
               maxWidth: '100%'
             }}
           >
-            <Sparkles size={14} style={{ shrink: 0 }} />
-            <span>PRELIMS & MAINS EXAM PREPARATION RESOURCE</span>
+            <Sparkles size={14} style={{ flexShrink: 0 }} />
+            <span>ALL GOVERNMENT EXAMS PREPARATION RESOURCE</span>
           </div>
 
           <h1 
@@ -61,8 +61,8 @@ export const HeroSection = ({ totalCount, featuredCount, freeCount, onOpenSheetM
               lineHeight: '1.25'
             }}
           >
-            High-Yield Civil Services Study Notes <br />
-            <span style={{ color: '#DC2626' }}>& Solved Previous Year Papers (PYQs)</span>
+            High-Yield Study Notes & Solved Papers <br />
+            <span style={{ color: '#DC2626' }}>For All Government Exams</span>
           </h1>
 
           <p 
@@ -74,7 +74,7 @@ export const HeroSection = ({ totalCount, featuredCount, freeCount, onOpenSheetM
               maxWidth: '680px'
             }}
           >
-            Access structured syllabus notes, concise mindmaps, solved GS papers, and high-yield PYQ revision guides crafted specifically for UPSC & State PCS Prelims & Mains success.
+            Access structured syllabus notes, concise mindmaps, solved papers, and high-yield revision PDF guides crafted for UPSC, SSC, Banking, Railways, State PCS, Defense & All Govt Exams success.
           </p>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', alignItems: 'center' }}>
@@ -135,4 +135,3 @@ export const HeroSection = ({ totalCount, featuredCount, freeCount, onOpenSheetM
     </section>
   );
 };
-
