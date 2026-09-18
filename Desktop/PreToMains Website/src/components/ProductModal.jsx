@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Download, Flame, ExternalLink, Share2, Check, FileText } from 'lucide-react';
+import { X, Download, Flame, ExternalLink, Share2, Check, FileText, Video, PlayCircle } from 'lucide-react';
 
 export const ProductModal = ({ product, onClose }) => {
   const [copied, setCopied] = useState(false);
@@ -8,6 +8,7 @@ export const ProductModal = ({ product, onClose }) => {
 
   const isFree = Number(product.Price_in_rupees) === 0;
   const isFeatured = String(product.featured).toUpperCase() === 'TRUE';
+  const hasVideo = product.Video_URL && product.Video_URL.trim() !== '' && product.Video_URL !== '#';
 
   const productUrl = `${window.location.origin}${window.location.pathname}?id=${encodeURIComponent(product.Product_id)}`;
 
@@ -134,6 +135,7 @@ export const ProductModal = ({ product, onClose }) => {
 
               {/* Action Buttons */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                {/* 1st Button: Download PDF Now */}
                 <a 
                   href={product.download_link}
                   target="_blank"
@@ -146,6 +148,28 @@ export const ProductModal = ({ product, onClose }) => {
                   <ExternalLink size={14} style={{ marginLeft: 'auto', opacity: 0.7 }} />
                 </a>
 
+                {/* 2nd Button directly under Download PDF: Watch Video */}
+                {hasVideo ? (
+                  <a 
+                    href={product.Video_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-secondary"
+                    style={{ 
+                      width: '100%', 
+                      padding: '0.85rem', 
+                      backgroundColor: '#DC2626', 
+                      color: '#FFFFFF',
+                      boxShadow: '0 4px 12px rgba(220, 38, 38, 0.25)' 
+                    }}
+                  >
+                    <PlayCircle size={18} />
+                    <span>Watch Video Explanation</span>
+                    <ExternalLink size={14} style={{ marginLeft: 'auto', opacity: 0.8 }} />
+                  </a>
+                ) : null}
+
+                {/* 3rd Button: Share Direct Product URL */}
                 <button 
                   className="btn btn-outline"
                   onClick={handleShare}

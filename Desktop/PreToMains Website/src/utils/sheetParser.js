@@ -27,6 +27,17 @@ export const normalizeGoogleSheetUrl = (url) => {
 };
 
 /**
+ * Helper to extract YouTube video ID from various YouTube URL formats
+ */
+export const getYoutubeVideoId = (url) => {
+  if (!url) return null;
+  const cleanUrl = url.trim();
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = cleanUrl.match(regExp);
+  return (match && match[2] && match[2].length === 11) ? match[2] : null;
+};
+
+/**
  * Helper to convert Google Drive sharing links to direct viewable image URLs
  */
 const formatImageLink = (url) => {
@@ -96,9 +107,14 @@ export const fetchGoogleSheetData = async (sheetUrl = DEFAULT_SHEET_URL) => {
           const featuredVal = getValue(['featured', 'Is_Featured', 'Featured_Item'], 'FALSE').toUpperCase();
           const isFeatured = ['TRUE', '1', 'YES', 'Y', 'HOT'].includes(featuredVal) ? 'TRUE' : 'FALSE';
 
+          // Video URL & YouTube Thumbnail auto-generation
+          const videoUrl = getValue(['Video_URL', 'VideoURL', 'Video', 'Youtube_URL', 'Youtube_Link', 'Video_Link'], '');
+          const videoId = getYoutubeVideoId(videoUrl);
+          const videoThumbnail = videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : '';
+
           // Image & Download links
           const rawImg = getValue(['Thumbnail', 'Image_Link', 'Image', 'Image_Url'], '');
-          const imageLink = formatImageLink(rawImg);
+          const imageLink = videoThumbnail || formatImageLink(rawImg);
 
           const downloadLink = getValue(['Download_Link', 'download_link', 'Download', 'Link', 'PDF_Link', 'Drive_Link'], '#');
 
@@ -108,6 +124,7 @@ export const fetchGoogleSheetData = async (sheetUrl = DEFAULT_SHEET_URL) => {
             Product_Description: getValue(['Product_Description', 'Description', 'ProductDescription'], 'No description available for this study material.'),
             Price_in_rupees: numPrice,
             Image_Link: imageLink,
+            Video_URL: videoUrl,
             download_link: downloadLink,
             featured: isFeatured
           };
@@ -121,4 +138,5 @@ export const fetchGoogleSheetData = async (sheetUrl = DEFAULT_SHEET_URL) => {
     });
   });
 };
+
 

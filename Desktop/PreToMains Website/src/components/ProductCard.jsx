@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Download, ExternalLink, Flame, Eye, Tag } from 'lucide-react';
+import { Download, ExternalLink, Flame, Eye, Tag, Video } from 'lucide-react';
 
 export const ProductCard = ({ product, onSelectProduct }) => {
   const [imgSrc, setImgSrc] = useState(product.Image_Link);
@@ -80,6 +80,19 @@ export const ProductCard = ({ product, onSelectProduct }) => {
         >
           {product.Product_id}
         </button>
+
+        {/* Video Available Badge Overlay */}
+        {product.Video_URL && product.Video_URL.trim() !== '' && product.Video_URL !== '#' && (
+          <div style={{ position: 'absolute', bottom: '12px', left: '12px', zIndex: 2 }}>
+            <span 
+              className="badge" 
+              style={{ backgroundColor: '#DC2626', color: '#FFFFFF', padding: '0.2rem 0.5rem', fontSize: '0.7rem' }}
+            >
+              <Video size={12} />
+              Video
+            </span>
+          </div>
+        )}
 
         {/* Price Tag Overlay */}
         <div style={{ position: 'absolute', bottom: '12px', right: '12px', zIndex: 2 }}>
