@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flame, ArrowRight, Download, Sparkles } from 'lucide-react';
+import { Flame, ArrowRight, Download, Sparkles, Video } from 'lucide-react';
 
 export const FeaturedSection = ({ products, onSelectProduct }) => {
   const featuredItems = products.filter(p => String(p.featured).toUpperCase() === 'TRUE');
@@ -115,30 +115,55 @@ export const FeaturedSection = ({ products, onSelectProduct }) => {
                   {item.Product_Description}
                 </p>
 
-                <div style={{ display: 'flex', gap: '0.75rem', marginTop: 'auto' }}>
-                  <button 
-                    className="btn btn-primary btn-sm"
-                    style={{ flex: 1 }}
-                    onClick={() => onSelectProduct(item)}
-                  >
-                    <span>View Details</span>
-                    <ArrowRight size={14} />
-                  </button>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: 'auto' }}>
+                  <div style={{ display: 'flex', gap: '0.75rem' }}>
+                    <button 
+                      className="btn btn-primary btn-sm"
+                      style={{ flex: 1 }}
+                      onClick={() => onSelectProduct(item)}
+                    >
+                      <span>View Details</span>
+                      <ArrowRight size={14} />
+                    </button>
 
-                  <a 
-                    href={item.download_link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-secondary btn-sm"
-                    onClick={(e) => {
-                      if (!item.download_link || item.download_link === '#') {
-                        e.preventDefault();
-                        onSelectProduct(item);
-                      }
-                    }}
-                  >
-                    <Download size={14} />
-                  </a>
+                    <a 
+                      href={item.download_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-secondary btn-sm"
+                      onClick={(e) => {
+                        if (!item.download_link || item.download_link === '#') {
+                          e.preventDefault();
+                          onSelectProduct(item);
+                        }
+                      }}
+                    >
+                      <Download size={14} />
+                    </a>
+                  </div>
+
+                  {item.Video_URL && item.Video_URL.trim() !== '' && item.Video_URL !== '#' && (
+                    <a 
+                      href={item.Video_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-sm"
+                      style={{
+                        backgroundColor: '#DC2626',
+                        color: '#FFFFFF',
+                        width: '100%',
+                        justifyContent: 'center',
+                        gap: '0.4rem',
+                        fontSize: '0.8rem',
+                        padding: '0.45rem 0.75rem',
+                        borderRadius: 'var(--radius-md)',
+                        boxShadow: '0 2px 8px rgba(220, 38, 38, 0.2)'
+                      }}
+                    >
+                      <Video size={14} />
+                      <span>Watch Video</span>
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
