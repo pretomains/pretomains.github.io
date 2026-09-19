@@ -4,6 +4,9 @@ import { HeroSection } from './components/HeroSection';
 import { FeaturedSection } from './components/FeaturedSection';
 import { CatalogGrid } from './components/CatalogGrid';
 import { ProductModal } from './components/ProductModal';
+import { AboutModal } from './components/AboutModal';
+import { ContactModal } from './components/ContactModal';
+import { DisclaimerModal } from './components/DisclaimerModal';
 import { initialProducts } from './data/sampleProducts';
 import { fetchGoogleSheetData, DEFAULT_SHEET_URL } from './utils/sheetParser';
 
@@ -11,6 +14,7 @@ export function App() {
   const [products, setProducts] = useState(initialProducts);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [activeModal, setActiveModal] = useState(null); // 'about', 'contact', 'disclaimer', or null
   const [isLoading, setIsLoading] = useState(true);
 
   // Load Google Sheet data on mount (defaults to hardcoded user sheet)
@@ -28,6 +32,20 @@ export function App() {
       .finally(() => {
         setIsLoading(false);
       });
+  }, []);
+
+  // Check URL hash for modal routes e.g., #about, #contact, #disclaimer
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.toLowerCase();
+      if (hash === '#about') setActiveModal('about');
+      else if (hash === '#contact') setActiveModal('contact');
+      else if (hash === '#disclaimer') setActiveModal('disclaimer');
+    };
+
+    handleHashChange();
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
   // Open product from URL query parameter e.g., ?id=UPS092855
@@ -90,6 +108,9 @@ export function App() {
       <Navbar
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
+        onOpenAbout={() => setActiveModal('about')}
+        onOpenContact={() => setActiveModal('contact')}
+        onOpenDisclaimer={() => setActiveModal('disclaimer')}
       />
 
       {/* Main Content Area */}
@@ -124,6 +145,18 @@ export function App() {
         />
       )}
 
+      {/* Informational Modals */}
+      {activeModal === 'about' && (
+        <AboutModal onClose={() => setActiveModal(null)} />
+      )}
+
+      {activeModal === 'contact' && (
+        <ContactModal onClose={() => setActiveModal(null)} />
+      )}
+
+      {activeModal === 'disclaimer' && (
+        <DisclaimerModal onClose={() => setActiveModal(null)} />
+      )}
 
       {/* Footer */}
       <footer 
@@ -140,7 +173,7 @@ export function App() {
             maxWidth: '1280px',
             margin: '0 auto',
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
             gap: '2rem',
             marginBottom: '2rem'
           }}
@@ -163,13 +196,13 @@ export function App() {
               </span>
             </div>
             <p style={{ fontSize: '0.85rem', color: '#94A3B8', lineHeight: 1.6 }}>
-              Empowering government exam aspirants with structured, concise, and high-yield revision materials for UPSC, SSC, Banking, Railways, State PCS, Defense & All Government Exams.
+              Official study material platform for the <strong>@pretomains</strong> YouTube channel. Empowering government exam aspirants with structured, concise, and high-yield revision PDF notes for UPSC, SSC, Banking, Railways, State PCS & Defense.
             </p>
           </div>
 
           <div>
             <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#FFFFFF', marginBottom: '0.75rem' }}>
-              Syllabus & Exam Coverage
+              Exam Coverage
             </h4>
             <ul style={{ listStyle: 'none', fontSize: '0.82rem', color: '#94A3B8', lineHeight: 1.8 }}>
               <li>• UPSC CSE & State PCS Prelims/Mains</li>
@@ -182,13 +215,29 @@ export function App() {
 
           <div>
             <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#FFFFFF', marginBottom: '0.75rem' }}>
-              Key Study Resources
+              Quick Navigation & Pages
             </h4>
-            <ul style={{ listStyle: 'none', fontSize: '0.82rem', color: '#94A3B8', lineHeight: 1.8 }}>
-              <li>✔ High-Yield Revision PDFs & Mindmaps</li>
-              <li>✔ Topic-wise Solved PYQs</li>
-              <li>✔ Exam Specific Practice Frameworks</li>
-              <li>✔ Instant Free Digital PDF Downloads</li>
+            <ul style={{ listStyle: 'none', fontSize: '0.82rem', color: '#94A3B8', lineHeight: 2.0 }}>
+              <li>
+                <button onClick={() => setActiveModal('about')} style={{ background: 'none', border: 'none', color: '#CBD5E1', cursor: 'pointer', padding: 0, font: 'inherit' }}>
+                  &rarr; About PreToMains
+                </button>
+              </li>
+              <li>
+                <button onClick={() => setActiveModal('contact')} style={{ background: 'none', border: 'none', color: '#CBD5E1', cursor: 'pointer', padding: 0, font: 'inherit' }}>
+                  &rarr; Contact Us
+                </button>
+              </li>
+              <li>
+                <button onClick={() => setActiveModal('disclaimer')} style={{ background: 'none', border: 'none', color: '#CBD5E1', cursor: 'pointer', padding: 0, font: 'inherit' }}>
+                  &rarr; Disclaimer & Disclosures
+                </button>
+              </li>
+              <li>
+                <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" style={{ color: '#DC2626', textDecoration: 'none', fontWeight: 700 }}>
+                  &rarr; XML Sitemap (sitemap.xml)
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -209,11 +258,15 @@ export function App() {
           }}
         >
           <div>
-            &copy; {new Date().getFullYear()} PreToMains Notes & Materials. All rights reserved.
+            &copy; {new Date().getFullYear()} PreToMains Notes & Materials. Official Platform of @pretomains YouTube Channel.
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-            <span>Designed for All Government Exams Preparation</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <button onClick={() => setActiveModal('about')} style={{ background: 'none', border: 'none', color: '#71717A', cursor: 'pointer', font: 'inherit' }}>About</button>
+            <span>•</span>
+            <button onClick={() => setActiveModal('contact')} style={{ background: 'none', border: 'none', color: '#71717A', cursor: 'pointer', font: 'inherit' }}>Contact</button>
+            <span>•</span>
+            <button onClick={() => setActiveModal('disclaimer')} style={{ background: 'none', border: 'none', color: '#71717A', cursor: 'pointer', font: 'inherit' }}>Disclaimer</button>
           </div>
         </div>
       </footer>
@@ -222,4 +275,5 @@ export function App() {
 }
 
 export default App;
+
 

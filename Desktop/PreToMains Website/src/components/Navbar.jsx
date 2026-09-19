@@ -1,11 +1,11 @@
 import React from 'react';
-import { Search, Sparkles, X } from 'lucide-react';
+import { Search, Sparkles, X, Info, Mail, ShieldAlert } from 'lucide-react';
 
-export const Navbar = ({ searchTerm, setSearchTerm }) => {
+export const Navbar = ({ searchTerm, setSearchTerm, onOpenAbout, onOpenContact, onOpenDisclaimer }) => {
   return (
     <header className="navbar">
       <div className="navbar-inner">
-        {/* Top Header Row: Logo & Category Badges */}
+        {/* Top Header Row: Logo & Navigation Badges */}
         <div 
           style={{ 
             display: 'flex', 
@@ -36,15 +36,34 @@ export const Navbar = ({ searchTerm, setSearchTerm }) => {
             </div>
           </a>
 
-          {/* Right Resource Badges */}
-          <div className="navbar-badge-container" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span 
-              className="badge badge-red-outline" 
-              style={{ padding: '0.35rem 0.65rem', fontSize: '0.72rem', textTransform: 'none', fontWeight: 700 }}
+          {/* Right Navigation Links & Badges */}
+          <div className="navbar-badge-container" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+            <button 
+              onClick={onOpenAbout}
+              className="btn btn-outline btn-sm"
+              style={{ padding: '0.3rem 0.65rem', fontSize: '0.78rem', height: '32px' }}
             >
-              <Sparkles size={12} />
-              <span>Govt Exams Portal</span>
-            </span>
+              <Info size={13} style={{ color: '#DC2626' }} />
+              <span>About Us</span>
+            </button>
+
+            <button 
+              onClick={onOpenContact}
+              className="btn btn-outline btn-sm"
+              style={{ padding: '0.3rem 0.65rem', fontSize: '0.78rem', height: '32px' }}
+            >
+              <Mail size={13} style={{ color: '#DC2626' }} />
+              <span>Contact</span>
+            </button>
+
+            <button 
+              onClick={onOpenDisclaimer}
+              className="btn btn-outline btn-sm"
+              style={{ padding: '0.3rem 0.65rem', fontSize: '0.78rem', height: '32px' }}
+            >
+              <ShieldAlert size={13} style={{ color: '#DC2626' }} />
+              <span>Disclaimer</span>
+            </button>
           </div>
         </div>
 
@@ -67,7 +86,7 @@ export const Navbar = ({ searchTerm, setSearchTerm }) => {
             style={{ 
               paddingLeft: '2.6rem', 
               paddingRight: searchTerm ? '2.5rem' : '1rem', 
-              height: '44px', 
+              height: '42px', 
               fontSize: '0.9rem',
               borderRadius: 'var(--radius-md)'
             }}
@@ -103,4 +122,5 @@ export const Navbar = ({ searchTerm, setSearchTerm }) => {
     </header>
   );
 };
+
 
