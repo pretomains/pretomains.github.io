@@ -37,41 +37,48 @@ export const ProductModal = ({ product, onClose }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '1.25rem 1.5rem',
-            borderBottom: '1px solid #E2E8F0'
+            padding: '1rem 1.25rem',
+            borderBottom: '1px solid #E2E8F0',
+            position: 'sticky',
+            top: 0,
+            backgroundColor: '#FFFFFF',
+            zIndex: 10
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <FileText size={18} style={{ color: '#DC2626' }} />
-            <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#64748B', fontFamily: 'monospace' }}>
+            <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#64748B', fontFamily: 'monospace' }}>
               PRODUCT ID: {product.Product_id}
             </span>
           </div>
 
           <button 
             onClick={onClose}
+            aria-label="Close modal"
             style={{
-              background: 'none',
+              background: '#F1F5F9',
               border: 'none',
               cursor: 'pointer',
               color: '#64748B',
-              padding: '0.25rem',
+              width: '32px',
+              height: '32px',
               borderRadius: '50%',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center'
             }}
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
 
         {/* Modal Body */}
-        <div style={{ padding: '1.5rem' }}>
+        <div style={{ padding: '1.25rem' }}>
           <div 
+            className="modal-grid-body"
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
               gap: '1.25rem',
               alignItems: 'start'
             }}
@@ -88,46 +95,46 @@ export const ProductModal = ({ product, onClose }) => {
                 product={product}
                 isFeatured={isFeatured}
                 isFree={isFree}
-                height="240px"
+                height="200px"
               />
             </div>
 
             {/* Details Box */}
             <div>
-              <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#09090B', marginBottom: '0.75rem', lineHeight: 1.3 }}>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#09090B', marginBottom: '0.5rem', lineHeight: 1.3 }}>
                 {product.Product_Title}
               </h2>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
-                <div style={{ fontSize: '1.5rem', fontWeight: 800, color: isFree ? '#10B981' : '#09090B' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+                <div style={{ fontSize: '1.35rem', fontWeight: 800, color: isFree ? '#10B981' : '#09090B' }}>
                   {isFree ? 'FREE' : `₹${product.Price_in_rupees}`}
                 </div>
 
                 {!isFree && (
-                  <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 600 }}>
+                  <span style={{ fontSize: '0.78rem', color: '#64748B', fontWeight: 600 }}>
                     Instant Digital PDF Access
                   </span>
                 )}
               </div>
 
               <div style={{ marginBottom: '1.25rem' }}>
-                <h4 style={{ fontSize: '0.85rem', fontWeight: 700, color: '#09090B', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.4rem' }}>
+                <h4 style={{ fontSize: '0.8rem', fontWeight: 700, color: '#09090B', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
                   Description & Coverage
                 </h4>
-                <p style={{ fontSize: '0.92rem', color: '#475569', lineHeight: 1.6, whiteSpace: 'pre-line' }}>
+                <p style={{ fontSize: '0.88rem', color: '#475569', lineHeight: 1.55, whiteSpace: 'pre-line' }}>
                   {product.Product_Description}
                 </p>
               </div>
 
               {/* Action Buttons */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
                 {/* 1st Button: Download PDF Now */}
                 <a 
                   href={product.download_link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-primary"
-                  style={{ width: '100%', padding: '0.85rem' }}
+                  style={{ width: '100%', minHeight: '46px', padding: '0.75rem 1rem' }}
                 >
                   <Download size={18} />
                   <span>{isFree ? 'Download PDF Now' : `Access Material (₹${product.Price_in_rupees})`}</span>
@@ -143,7 +150,8 @@ export const ProductModal = ({ product, onClose }) => {
                     className="btn btn-secondary"
                     style={{ 
                       width: '100%', 
-                      padding: '0.85rem', 
+                      minHeight: '46px',
+                      padding: '0.75rem 1rem', 
                       backgroundColor: '#DC2626', 
                       color: '#FFFFFF',
                       boxShadow: '0 4px 12px rgba(220, 38, 38, 0.25)' 
@@ -159,7 +167,7 @@ export const ProductModal = ({ product, onClose }) => {
                 <button 
                   className="btn btn-outline"
                   onClick={handleShare}
-                  style={{ width: '100%' }}
+                  style={{ width: '100%', minHeight: '44px' }}
                 >
                   {copied ? <Check size={16} style={{ color: '#10B981' }} /> : <Share2 size={16} />}
                   <span>{copied ? 'Direct Link Copied!' : 'Share Direct Product URL'}</span>

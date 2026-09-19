@@ -8,17 +8,17 @@ export const FeaturedSection = ({ products, onSelectProduct }) => {
   if (featuredItems.length === 0) return null;
 
   return (
-    <section style={{ marginBottom: '3rem' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+    <section style={{ marginBottom: '2.5rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <div style={{ padding: '0.4rem', backgroundColor: '#FEF2F2', borderRadius: 'var(--radius-sm)', color: '#DC2626' }}>
-            <Flame size={20} />
+          <div style={{ padding: '0.35rem', backgroundColor: '#FEF2F2', borderRadius: 'var(--radius-sm)', color: '#DC2626' }}>
+            <Flame size={18} />
           </div>
           <div>
-            <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#09090B' }}>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#09090B' }}>
               Featured Notes & Materials
             </h2>
-            <p style={{ fontSize: '0.85rem', color: '#64748B' }}>Handpicked top-recommended study guides for Government Exams</p>
+            <p style={{ fontSize: '0.8rem', color: '#64748B' }}>Handpicked top-recommended study guides for Government Exams</p>
           </div>
         </div>
       </div>
@@ -28,7 +28,7 @@ export const FeaturedSection = ({ products, onSelectProduct }) => {
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-          gap: '1.25rem'
+          gap: '1.15rem'
         }}
       >
         {featuredItems.map((item) => {
@@ -37,7 +37,7 @@ export const FeaturedSection = ({ products, onSelectProduct }) => {
           return (
             <div
               key={item.Product_id}
-              className="hover-lift"
+              className="product-card hover-lift"
               style={{
                 backgroundColor: '#FFFFFF',
                 borderRadius: 'var(--radius-lg)',
@@ -54,23 +54,23 @@ export const FeaturedSection = ({ products, onSelectProduct }) => {
                 isFeatured={true}
                 isFree={isFree}
                 onSelectProduct={onSelectProduct}
-                height="195px"
+                height="180px"
               />
 
-              <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#09090B', marginBottom: '0.5rem', lineHeight: 1.3 }}>
+              <div style={{ padding: '1rem 1.15rem 1.15rem 1.15rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#09090B', marginBottom: '0.4rem', lineHeight: 1.3 }}>
                   {item.Product_Title}
                 </h3>
 
-                <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5, marginBottom: '1.25rem' }}>
+                <p style={{ fontSize: '0.82rem', color: '#475569', lineHeight: 1.5, marginBottom: '1rem' }}>
                   {item.Product_Description}
                 </p>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: 'auto' }}>
-                  <div style={{ display: 'flex', gap: '0.75rem' }}>
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
                     <button 
                       className="btn btn-primary btn-sm"
-                      style={{ flex: 1 }}
+                      style={{ flex: 1, minHeight: '40px' }}
                       onClick={() => onSelectProduct(item)}
                     >
                       <span>View Details</span>
@@ -82,6 +82,7 @@ export const FeaturedSection = ({ products, onSelectProduct }) => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn btn-secondary btn-sm"
+                      style={{ minHeight: '40px', minWidth: '40px', padding: 0 }}
                       onClick={(e) => {
                         if (!item.download_link || item.download_link === '#') {
                           e.preventDefault();
@@ -89,7 +90,7 @@ export const FeaturedSection = ({ products, onSelectProduct }) => {
                         }
                       }}
                     >
-                      <Download size={14} />
+                      <Download size={15} />
                     </a>
                   </div>
 
@@ -107,6 +108,7 @@ export const FeaturedSection = ({ products, onSelectProduct }) => {
                         gap: '0.4rem',
                         fontSize: '0.8rem',
                         padding: '0.45rem 0.75rem',
+                        minHeight: '40px',
                         borderRadius: 'var(--radius-md)',
                         boxShadow: '0 2px 8px rgba(220, 38, 38, 0.2)'
                       }}

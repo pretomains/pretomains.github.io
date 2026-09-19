@@ -8,7 +8,7 @@ export const ProductCard = ({ product, onSelectProduct }) => {
 
   return (
     <div 
-      className="hover-lift"
+      className="product-card hover-lift"
       style={{
         backgroundColor: '#FFFFFF',
         borderRadius: 'var(--radius-lg)',
@@ -26,17 +26,17 @@ export const ProductCard = ({ product, onSelectProduct }) => {
         isFeatured={isFeatured}
         isFree={isFree}
         onSelectProduct={onSelectProduct}
-        height="185px"
+        height="175px"
       />
 
       {/* Content Body */}
-      <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <div style={{ padding: '1rem 1.15rem 1.15rem 1.15rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
         <h3 
           style={{
-            fontSize: '1.05rem',
+            fontSize: '1rem',
             fontWeight: 700,
             color: '#09090B',
-            marginBottom: '0.5rem',
+            marginBottom: '0.4rem',
             lineHeight: 1.35,
             display: '-webkit-box',
             WebkitLineClamp: 2,
@@ -50,10 +50,10 @@ export const ProductCard = ({ product, onSelectProduct }) => {
 
         <p 
           style={{
-            fontSize: '0.85rem',
+            fontSize: '0.82rem',
             color: '#64748B',
             lineHeight: 1.5,
-            marginBottom: '1.25rem',
+            marginBottom: '1rem',
             display: '-webkit-box',
             WebkitLineClamp: 3,
             WebkitBoxOrient: 'vertical',
@@ -70,6 +70,7 @@ export const ProductCard = ({ product, onSelectProduct }) => {
             <button 
               className="btn btn-outline btn-sm"
               onClick={() => onSelectProduct(product)}
+              style={{ minHeight: '40px' }}
             >
               <Eye size={14} />
               <span>Details</span>
@@ -80,6 +81,7 @@ export const ProductCard = ({ product, onSelectProduct }) => {
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary btn-sm"
+              style={{ minHeight: '40px' }}
               onClick={(e) => {
                 if (!product.download_link || product.download_link === '#') {
                   e.preventDefault();
@@ -106,6 +108,7 @@ export const ProductCard = ({ product, onSelectProduct }) => {
                 gap: '0.4rem',
                 fontSize: '0.8rem',
                 padding: '0.45rem 0.75rem',
+                minHeight: '40px',
                 borderRadius: 'var(--radius-md)',
                 boxShadow: '0 2px 8px rgba(220, 38, 38, 0.2)'
               }}

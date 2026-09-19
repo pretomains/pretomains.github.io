@@ -11,9 +11,11 @@ export function App() {
   const [products, setProducts] = useState(initialProducts);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Load Google Sheet data on mount (defaults to hardcoded user sheet)
   useEffect(() => {
+    setIsLoading(true);
     fetchGoogleSheetData(DEFAULT_SHEET_URL)
       .then((data) => {
         if (data && data.length > 0) {
@@ -21,7 +23,10 @@ export function App() {
         }
       })
       .catch((err) => {
-        console.warn('Failed to load sheet data, using fallback data:', err);
+        console.warn('Failed to load sheet data:', err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, []);
 
@@ -106,6 +111,7 @@ export function App() {
         <CatalogGrid
           products={products}
           searchTerm={searchTerm}
+          isLoading={isLoading}
           onSelectProduct={handleSelectProduct}
         />
       </main>

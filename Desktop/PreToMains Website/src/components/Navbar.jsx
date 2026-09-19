@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Sparkles } from 'lucide-react';
+import { Search, Sparkles, X } from 'lucide-react';
 
 export const Navbar = ({ searchTerm, setSearchTerm }) => {
   return (
@@ -22,11 +22,12 @@ export const Navbar = ({ searchTerm, setSearchTerm }) => {
               alt="PreToMains Logo"
               onError={(e) => { e.target.onerror = null; e.target.src = '/logo.png'; }}
               style={{
-                width: '42px',
-                height: '42px',
+                width: '40px',
+                height: '40px',
                 borderRadius: 'var(--radius-md)',
                 objectFit: 'cover',
-                boxShadow: '0 4px 12px rgba(220, 38, 38, 0.25)'
+                boxShadow: '0 4px 12px rgba(220, 38, 38, 0.25)',
+                flexShrink: 0
               }}
             />
             <div>
@@ -36,13 +37,13 @@ export const Navbar = ({ searchTerm, setSearchTerm }) => {
           </a>
 
           {/* Right Resource Badges */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'nowrap' }}>
+          <div className="navbar-badge-container" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span 
               className="badge badge-red-outline" 
-              style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem', textTransform: 'none', fontWeight: 700 }}
+              style={{ padding: '0.35rem 0.65rem', fontSize: '0.72rem', textTransform: 'none', fontWeight: 700 }}
             >
               <Sparkles size={12} />
-              <span>All Government Exams Portal</span>
+              <span>Govt Exams Portal</span>
             </span>
           </div>
         </div>
@@ -56,19 +57,50 @@ export const Navbar = ({ searchTerm, setSearchTerm }) => {
               left: '14px', 
               top: '50%', 
               transform: 'translateY(-50%)', 
-              color: '#94A3B8' 
+              color: '#94A3B8',
+              pointerEvents: 'none'
             }} 
           />
           <input
             type="text"
-            className="input-field"
-            style={{ paddingLeft: '2.6rem', paddingRight: '1rem', height: '42px', fontSize: '0.9rem' }}
-            placeholder="Search UPSC, SSC, Banking, Railways, PYQs or Product ID..."
+            className="input-field search-input"
+            style={{ 
+              paddingLeft: '2.6rem', 
+              paddingRight: searchTerm ? '2.5rem' : '1rem', 
+              height: '44px', 
+              fontSize: '0.9rem',
+              borderRadius: 'var(--radius-md)'
+            }}
+            placeholder="Search notes, PYQs or Product ID..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+          {searchTerm && (
+            <button
+              onClick={() => setSearchTerm('')}
+              aria-label="Clear search"
+              style={{
+                position: 'absolute',
+                right: '10px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'none',
+                border: 'none',
+                color: '#64748B',
+                cursor: 'pointer',
+                padding: '4px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: '50%'
+              }}
+            >
+              <X size={16} />
+            </button>
+          )}
         </div>
       </div>
     </header>
   );
 };
+
