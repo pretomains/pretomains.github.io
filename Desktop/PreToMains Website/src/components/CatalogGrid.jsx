@@ -30,6 +30,11 @@ export const CatalogGrid = ({ products, searchTerm, isLoading, onSelectProduct }
 
       return true;
     }).sort((a, b) => {
+      if (sortBy === 'DEFAULT') {
+        if (a.isAd && !b.isAd) return -1;
+        if (!a.isAd && b.isAd) return 1;
+        return 0;
+      }
       if (sortBy === 'PRICE_LOW') return Number(a.Price_in_rupees) - Number(b.Price_in_rupees);
       if (sortBy === 'PRICE_HIGH') return Number(b.Price_in_rupees) - Number(a.Price_in_rupees);
       if (sortBy === 'TITLE') return a.Product_Title.localeCompare(b.Product_Title);

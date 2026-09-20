@@ -103,8 +103,12 @@ export const fetchGoogleSheetData = async (sheetUrl = DEFAULT_SHEET_URL) => {
             numPrice = isNaN(parsed) ? 0 : parsed;
           }
 
+          // Ad / Affiliate column logic
+          const adVal = getValue(['Ad', 'AD', 'ad', 'Is_Ad', 'IsAd', 'Affiliate', 'Ad_Item'], 'FALSE').toUpperCase();
+          const isAd = ['TRUE', '1', 'YES', 'Y'].includes(adVal);
+
           // Featured logic
-          const featuredVal = getValue(['featured', 'Is_Featured', 'Featured_Item'], 'FALSE').toUpperCase();
+          const featuredVal = getValue(['featured', 'Is_Featured', 'Featured_Item', 'Featured'], 'FALSE').toUpperCase();
           const isFeatured = ['TRUE', '1', 'YES', 'Y', 'HOT'].includes(featuredVal) ? 'TRUE' : 'FALSE';
 
           // Video URL & YouTube Thumbnail auto-generation
@@ -113,7 +117,7 @@ export const fetchGoogleSheetData = async (sheetUrl = DEFAULT_SHEET_URL) => {
           const videoThumbnail = videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : '';
 
           // Image & Download links
-          const rawImg = getValue(['Thumbnail', 'Image_Link', 'Image', 'Image_Url'], '');
+          const rawImg = getValue(['Thumbnail', 'Image_Link', 'Image', 'Image_Url', 'Thumbnail_Url', 'Img'], '');
           const imageLink = videoThumbnail || formatImageLink(rawImg);
 
           const downloadLink = getValue(['Download_Link', 'download_link', 'Download', 'Link', 'PDF_Link', 'Drive_Link'], '#');
@@ -126,8 +130,16 @@ export const fetchGoogleSheetData = async (sheetUrl = DEFAULT_SHEET_URL) => {
             Image_Link: imageLink,
             Video_URL: videoUrl,
             download_link: downloadLink,
-            featured: isFeatured
+            featured: isFeatured,
+            isAd: isAd
           };
+        });
+
+        // Ensure Ad items appear at the front (first products)
+        formattedData.sort((a, b) => {
+          if (a.isAd && !b.isAd) return -1;
+          if (!a.isAd && b.isAd) return 1;
+          return 0;
         });
 
         resolve(formattedData);
