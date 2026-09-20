@@ -158,17 +158,18 @@ export const PdfIconCardHeader = ({ product, isFeatured, isFree, onSelectProduct
 
       {/* Top Left: Featured & Affiliate Badges */}
       <div style={{ position: 'absolute', top: '12px', left: '12px', zIndex: 3, display: 'flex', gap: '0.35rem', flexWrap: 'wrap' }}>
-        {isFeatured && (
-          <span className="badge badge-featured" style={{ fontSize: '0.7rem', padding: '0.25rem 0.6rem' }}>
-            <Flame size={12} />
-            Featured
-          </span>
-        )}
-        {isAd && (
+        {isAd ? (
           <span className="badge badge-affiliate" style={{ fontSize: '0.7rem', padding: '0.25rem 0.6rem' }}>
             <Tag size={12} />
             Affiliate
           </span>
+        ) : (
+          isFeatured && (
+            <span className="badge badge-featured" style={{ fontSize: '0.7rem', padding: '0.25rem 0.6rem' }}>
+              <Flame size={12} />
+              Featured
+            </span>
+          )
         )}
       </div>
 
@@ -201,8 +202,8 @@ export const PdfIconCardHeader = ({ product, isFeatured, isFree, onSelectProduct
         {product.Product_id}
       </button>
 
-      {/* Bottom Left: Video Badge if present */}
-      {hasVideo && (
+      {/* Bottom Left: Video Badge if present (Only for NON-Ad products) */}
+      {!isAd && hasVideo && (
         <div style={{ position: 'absolute', bottom: '10px', left: '12px', zIndex: 3 }}>
           <span 
             className="badge" 
@@ -214,14 +215,16 @@ export const PdfIconCardHeader = ({ product, isFeatured, isFree, onSelectProduct
         </div>
       )}
 
-      {/* Bottom Right: Price Badge */}
-      <div style={{ position: 'absolute', bottom: '10px', right: '12px', zIndex: 3 }}>
-        {isFree ? (
-          <span className="badge badge-free" style={{ fontSize: '0.7rem' }}>FREE PDF</span>
-        ) : (
-          <span className="badge badge-price" style={{ fontSize: '0.7rem' }}>₹{product.Price_in_rupees}</span>
-        )}
-      </div>
+      {/* Bottom Right: Price Badge (Only for NON-Ad products) */}
+      {!isAd && (
+        <div style={{ position: 'absolute', bottom: '10px', right: '12px', zIndex: 3 }}>
+          {isFree ? (
+            <span className="badge badge-free" style={{ fontSize: '0.7rem' }}>FREE PDF</span>
+          ) : (
+            <span className="badge badge-price" style={{ fontSize: '0.7rem' }}>₹{product.Price_in_rupees}</span>
+          )}
+        </div>
+      )}
     </div>
   );
 };

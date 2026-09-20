@@ -41,14 +41,15 @@ export const getYoutubeVideoId = (url) => {
  * Helper to convert Google Drive sharing links to direct viewable image URLs
  */
 const formatImageLink = (url) => {
-  if (!url) return 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&auto=format&fit=crop&q=80';
-  
+  if (!url || !url.trim()) return '';
+  const cleanUrl = url.trim();
+
   // Convert drive.google.com open/file links to direct image preview
-  const driveMatch = url.match(/drive\.google\.com\/(?:open\?id=|file\/d\/)([a-zA-Z0-9_-]+)/);
+  const driveMatch = cleanUrl.match(/drive\.google\.com\/(?:open\?id=|file\/d\/)([a-zA-Z0-9_-]+)/);
   if (driveMatch && driveMatch[1]) {
     return `https://lh3.googleusercontent.com/d/${driveMatch[1]}`;
   }
-  return url;
+  return cleanUrl;
 };
 
 /**
