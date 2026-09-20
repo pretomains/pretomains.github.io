@@ -136,13 +136,6 @@ export const fetchGoogleSheetData = async (sheetUrl = DEFAULT_SHEET_URL) => {
           };
         });
 
-        // Ensure Ad items appear at the front (first products)
-        formattedData.sort((a, b) => {
-          if (a.isAd && !b.isAd) return -1;
-          if (!a.isAd && b.isAd) return 1;
-          return 0;
-        });
-
         resolve(formattedData);
       },
       error: (err) => {

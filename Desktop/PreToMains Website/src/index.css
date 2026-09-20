@@ -512,7 +512,15 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .navbar-badge-container {
-    display: none !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.35rem !important;
+    flex-wrap: wrap;
+  }
+
+  .theme-toggle-btn {
+    display: inline-flex !important;
   }
 
   .main-content {
@@ -586,6 +594,14 @@ h1, h2, h3, h4, h5, h6 {
 
   .pagination-numbers {
     display: none !important;
+  }
+
+  .nav-secondary-btn {
+    padding: 0.3rem 0.45rem !important;
+  }
+
+  .nav-btn-text {
+    display: none;
   }
 }
 

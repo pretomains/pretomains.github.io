@@ -21,7 +21,7 @@ export function App() {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const saved = localStorage.getItem('theme');
     if (saved) return saved === 'dark';
-    return true; // Default to dark mode (Dark Black & Red)
+    return false; // Default to light mode (White, Black & Red)
   });
 
   useEffect(() => {

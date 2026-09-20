@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Sparkles, X, Info, Mail, ShieldAlert, Sun, Moon } from 'lucide-react';
+import { Search, X, Info, Mail, ShieldAlert, Sun, Moon } from 'lucide-react';
 
 export const Navbar = ({ 
   searchTerm, 
@@ -45,7 +45,7 @@ export const Navbar = ({
           </a>
 
           {/* Right Navigation Links & Badges */}
-          <div className="navbar-badge-container" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+          <div className="navbar-badge-container" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
             {/* Dark Mode Toggle Button */}
             <button 
               onClick={onToggleDarkMode}
@@ -56,7 +56,7 @@ export const Navbar = ({
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.4rem',
-                padding: '0.35rem 0.7rem',
+                padding: '0.35rem 0.65rem',
                 borderRadius: 'var(--radius-full)',
                 border: '1.5px solid',
                 borderColor: isDarkMode ? '#DC2626' : '#E2E8F0',
@@ -67,47 +67,51 @@ export const Navbar = ({
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
                 height: '32px',
-                boxShadow: isDarkMode ? '0 2px 10px rgba(220, 38, 38, 0.25)' : '0 2px 8px rgba(0,0,0,0.05)'
+                boxShadow: isDarkMode ? '0 2px 10px rgba(220, 38, 38, 0.25)' : '0 2px 8px rgba(0,0,0,0.05)',
+                flexShrink: 0
               }}
             >
               {isDarkMode ? (
                 <>
                   <Sun size={14} style={{ color: '#F59E0B' }} />
-                  <span>Light Mode</span>
+                  <span className="theme-toggle-label">Light Mode</span>
                 </>
               ) : (
                 <>
                   <Moon size={14} style={{ color: '#DC2626' }} />
-                  <span>Dark Mode</span>
+                  <span className="theme-toggle-label">Dark Mode</span>
                 </>
               )}
             </button>
 
             <button 
               onClick={onOpenAbout}
-              className="btn btn-outline btn-sm"
-              style={{ padding: '0.3rem 0.65rem', fontSize: '0.78rem', height: '32px' }}
+              className="btn btn-outline btn-sm nav-secondary-btn"
+              title="About Us"
+              style={{ padding: '0.3rem 0.6rem', fontSize: '0.78rem', height: '32px', flexShrink: 0 }}
             >
               <Info size={13} style={{ color: '#DC2626' }} />
-              <span>About Us</span>
+              <span className="nav-btn-text">About</span>
             </button>
 
             <button 
               onClick={onOpenContact}
-              className="btn btn-outline btn-sm"
-              style={{ padding: '0.3rem 0.65rem', fontSize: '0.78rem', height: '32px' }}
+              className="btn btn-outline btn-sm nav-secondary-btn"
+              title="Contact Us"
+              style={{ padding: '0.3rem 0.6rem', fontSize: '0.78rem', height: '32px', flexShrink: 0 }}
             >
               <Mail size={13} style={{ color: '#DC2626' }} />
-              <span>Contact</span>
+              <span className="nav-btn-text">Contact</span>
             </button>
 
             <button 
               onClick={onOpenDisclaimer}
-              className="btn btn-outline btn-sm"
-              style={{ padding: '0.3rem 0.65rem', fontSize: '0.78rem', height: '32px' }}
+              className="btn btn-outline btn-sm nav-secondary-btn"
+              title="Disclaimer"
+              style={{ padding: '0.3rem 0.6rem', fontSize: '0.78rem', height: '32px', flexShrink: 0 }}
             >
               <ShieldAlert size={13} style={{ color: '#DC2626' }} />
-              <span>Disclaimer</span>
+              <span className="nav-btn-text">Disclaimer</span>
             </button>
           </div>
         </div>
