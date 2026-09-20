@@ -40,6 +40,156 @@
   --transition-smooth: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Dark Mode Theme Variables & Styling (Dark Black & Red) */
+body.dark-mode {
+  --bg-main: #09090B;
+  --bg-gradient-top: #0F0F13;
+  --bg-card: #121217;
+  --bg-card-hover: #18181F;
+
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --text-subtle: #64748B;
+  --text-white: #FFFFFF;
+
+  --primary-red: #EF4444;
+  --primary-red-hover: #DC2626;
+  --primary-red-light: rgba(239, 68, 68, 0.15);
+  --primary-red-border: #7F1D1D;
+
+  --accent-black: #F8FAFC;
+  --accent-black-soft: #E2E8F0;
+
+  --border-light: #27272A;
+  --border-focus: #EF4444;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.8);
+  --shadow-red: 0 8px 25px rgba(239, 68, 68, 0.35);
+
+  background-color: #09090B;
+  color: #F8FAFC;
+}
+
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode h4, 
+body.dark-mode h5, 
+body.dark-mode h6 {
+  color: #F8FAFC;
+}
+
+body.dark-mode .app-container {
+  background: radial-gradient(circle at 50% 0%, #2A0909 0%, #09090B 55%);
+}
+
+body.dark-mode .navbar {
+  background-color: rgba(9, 9, 11, 0.94);
+  border-bottom-color: #27272A;
+}
+
+body.dark-mode .brand-text-title {
+  color: #F8FAFC;
+}
+
+body.dark-mode .catalog-controls-card {
+  background-color: #121217 !important;
+  border-color: #27272A !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-mode .pagination-container {
+  background-color: #121217 !important;
+  border-color: #27272A !important;
+}
+
+body.dark-mode .product-card {
+  background-color: #121217 !important;
+  border-color: #27272A;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark-mode .product-card h3 {
+  color: #F8FAFC !important;
+}
+
+body.dark-mode .product-card p {
+  color: #94A3B8 !important;
+}
+
+body.dark-mode .hero-card {
+  background: linear-gradient(135deg, #121217 0%, #200808 100%) !important;
+  border-color: #7F1D1D !important;
+  box-shadow: 0 10px 30px rgba(239, 68, 68, 0.1) !important;
+}
+
+body.dark-mode .hero-card h1 {
+  color: #F8FAFC !important;
+}
+
+body.dark-mode .hero-card p {
+  color: #CBD5E1 !important;
+}
+
+body.dark-mode .hero-stats-grid {
+  border-top-color: #27272A !important;
+}
+
+body.dark-mode .stat-card div > div:first-child {
+  color: #F8FAFC !important;
+}
+
+body.dark-mode .modal-content {
+  background-color: #121217 !important;
+  border-color: #27272A !important;
+  color: #F8FAFC !important;
+}
+
+body.dark-mode .modal-content h2,
+body.dark-mode .modal-content h3,
+body.dark-mode .modal-content h4 {
+  color: #F8FAFC !important;
+}
+
+body.dark-mode .modal-content p {
+  color: #CBD5E1 !important;
+}
+
+body.dark-mode .input-field {
+  background-color: #18181B !important;
+  color: #F8FAFC !important;
+  border-color: #27272A !important;
+}
+
+body.dark-mode select.input-field {
+  background-color: #18181B !important;
+  color: #F8FAFC !important;
+}
+
+body.dark-mode select.input-field option {
+  background-color: #18181B !important;
+  color: #F8FAFC !important;
+}
+
+body.dark-mode .btn-outline {
+  background-color: #18181B !important;
+  color: #F8FAFC !important;
+  border-color: #27272A !important;
+}
+
+body.dark-mode .btn-outline:hover {
+  border-color: #EF4444 !important;
+  color: #EF4444 !important;
+  background-color: rgba(239, 68, 68, 0.15) !important;
+}
+
+body.dark-mode footer {
+  background-color: #050507 !important;
+  border-top-color: #EF4444 !important;
+}
+
 * {
   margin: 0;
   padding: 0;

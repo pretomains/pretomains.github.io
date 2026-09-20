@@ -17,6 +17,27 @@ export function App() {
   const [activeModal, setActiveModal] = useState(null); // 'about', 'contact', 'disclaimer', or null
   const [isLoading, setIsLoading] = useState(true);
 
+  // Dark Mode State Management (persists in localStorage)
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem('theme');
+    if (saved) return saved === 'dark';
+    return true; // Default to dark mode (Dark Black & Red)
+  });
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.add('dark-mode');
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.remove('dark-mode');
+      document.documentElement.setAttribute('data-theme', 'light');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDarkMode]);
+
+  const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
+
   // Load Google Sheet data on mount (defaults to hardcoded user sheet)
   useEffect(() => {
     setIsLoading(true);
@@ -108,6 +129,8 @@ export function App() {
       <Navbar
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
+        isDarkMode={isDarkMode}
+        onToggleDarkMode={toggleDarkMode}
         onOpenAbout={() => setActiveModal('about')}
         onOpenContact={() => setActiveModal('contact')}
         onOpenDisclaimer={() => setActiveModal('disclaimer')}

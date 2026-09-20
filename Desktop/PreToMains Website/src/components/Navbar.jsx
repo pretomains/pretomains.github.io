@@ -1,7 +1,15 @@
 import React from 'react';
-import { Search, Sparkles, X, Info, Mail, ShieldAlert } from 'lucide-react';
+import { Search, Sparkles, X, Info, Mail, ShieldAlert, Sun, Moon } from 'lucide-react';
 
-export const Navbar = ({ searchTerm, setSearchTerm, onOpenAbout, onOpenContact, onOpenDisclaimer }) => {
+export const Navbar = ({ 
+  searchTerm, 
+  setSearchTerm, 
+  isDarkMode, 
+  onToggleDarkMode, 
+  onOpenAbout, 
+  onOpenContact, 
+  onOpenDisclaimer 
+}) => {
   return (
     <header className="navbar">
       <div className="navbar-inner">
@@ -38,6 +46,43 @@ export const Navbar = ({ searchTerm, setSearchTerm, onOpenAbout, onOpenContact, 
 
           {/* Right Navigation Links & Badges */}
           <div className="navbar-badge-container" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+            {/* Dark Mode Toggle Button */}
+            <button 
+              onClick={onToggleDarkMode}
+              className="theme-toggle-btn"
+              aria-label="Toggle dark mode"
+              title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                padding: '0.35rem 0.7rem',
+                borderRadius: 'var(--radius-full)',
+                border: '1.5px solid',
+                borderColor: isDarkMode ? '#DC2626' : '#E2E8F0',
+                backgroundColor: isDarkMode ? '#18181B' : '#FFFFFF',
+                color: isDarkMode ? '#F8FAFC' : '#09090B',
+                fontSize: '0.78rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                height: '32px',
+                boxShadow: isDarkMode ? '0 2px 10px rgba(220, 38, 38, 0.25)' : '0 2px 8px rgba(0,0,0,0.05)'
+              }}
+            >
+              {isDarkMode ? (
+                <>
+                  <Sun size={14} style={{ color: '#F59E0B' }} />
+                  <span>Light Mode</span>
+                </>
+              ) : (
+                <>
+                  <Moon size={14} style={{ color: '#DC2626' }} />
+                  <span>Dark Mode</span>
+                </>
+              )}
+            </button>
+
             <button 
               onClick={onOpenAbout}
               className="btn btn-outline btn-sm"
