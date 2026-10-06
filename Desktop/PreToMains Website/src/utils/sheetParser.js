@@ -124,6 +124,7 @@ export const fetchGoogleSheetData = async (sheetUrl = DEFAULT_SHEET_URL) => {
           const downloadLink = getValue(['Download_Link', 'download_link', 'Download', 'Link', 'PDF_Link', 'Drive_Link'], '#');
 
           return {
+            sheetRow: idx + 1,
             Product_id: productId,
             Product_Title: getValue(['Product_Title', 'Title', 'ProductTitle', 'Name'], 'Untitled Note Material'),
             Product_Description: getValue(['Product_Description', 'Description', 'ProductDescription'], 'No description available for this study material.'),
@@ -136,7 +137,8 @@ export const fetchGoogleSheetData = async (sheetUrl = DEFAULT_SHEET_URL) => {
           };
         });
 
-        resolve(formattedData);
+        // Reverse array so latest data (last row in Google Sheet) shows first by default
+        resolve(formattedData.reverse());
       },
       error: (err) => {
         reject(new Error(`CSV Parsing error: ${err.message}`));

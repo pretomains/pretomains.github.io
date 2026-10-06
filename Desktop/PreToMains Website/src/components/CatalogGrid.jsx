@@ -30,7 +30,8 @@ export const CatalogGrid = ({ products, searchTerm, isLoading, onSelectProduct }
 
       return true;
     }).sort((a, b) => {
-      if (sortBy === 'DEFAULT') return 0;
+      if (sortBy === 'DEFAULT') return 0; // Preserves reversed sheet order (Latest first)
+      if (sortBy === 'OLDEST') return (a.sheetRow || 0) - (b.sheetRow || 0);
       if (sortBy === 'PRICE_LOW') return Number(a.Price_in_rupees) - Number(b.Price_in_rupees);
       if (sortBy === 'PRICE_HIGH') return Number(b.Price_in_rupees) - Number(a.Price_in_rupees);
       if (sortBy === 'TITLE') return a.Product_Title.localeCompare(b.Product_Title);
@@ -146,7 +147,8 @@ export const CatalogGrid = ({ products, searchTerm, isLoading, onSelectProduct }
               className="input-field"
               style={{ width: 'auto', padding: '0.35rem 0.65rem', height: '36px', fontSize: '0.82rem' }}
             >
-              <option value="DEFAULT">Sort Default</option>
+              <option value="DEFAULT">Latest First (Default)</option>
+              <option value="OLDEST">Oldest First</option>
               <option value="PRICE_LOW">Price: Low to High</option>
               <option value="PRICE_HIGH">Price: High to Low</option>
               <option value="TITLE">Title: A to Z</option>
